@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Token = () => {
+const Token = ({toggleTrade, token} : {toggleTrade: any, token: any[]}) => {
   return (
     <div>
       Hi

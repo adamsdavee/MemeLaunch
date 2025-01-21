@@ -23,6 +23,16 @@ interface Window {
 
 export default function Home() {
 
+//   interface tokenss {
+//     token: string;
+//     name: string;
+//     creator: string;
+//     sold: bigint;
+//     raised: bigint;
+//     isOpen: boolean;
+//     image: string;
+// }[]
+
   const [provider, setProvider] = useState<ethers.BrowserProvider | undefined>(undefined);
   const [account, setAccount] = useState("");
   const [factory, setFactory] = useState<ethers.Contract | undefined>(undefined);
@@ -80,7 +90,7 @@ export default function Home() {
         console.log("token", tokenSale);
 
         const token = {
-          token: tokenSale.token,
+          token: tokenSale.token as string,
           name: tokenSale.name,
           creator: tokenSale.creator,
           sold: tokenSale.sold,
@@ -125,7 +135,23 @@ export default function Home() {
           </button>
         </div>
 
-        <div>Hii</div>
+        <div className="listings">
+          <h1>New Listings</h1>
+
+          <div className="tokens">
+            {!account ? (
+              <p>please connect wallet</p>
+            ): token?.length == 0 ? (
+              <p>No tokens listed</p>
+            ) : (
+              token?.map((token: any, index: any) => (
+                <div key={index}>
+                <Token toggleTrade={() => {}} token={token} />
+                  </div>
+            ))
+            )}
+          </div>
+        </div>
       </main>
 
       {showCreate && <List setShowCreate={setShowCreate} fee={fee} provider={provider} factory={factory} />}
