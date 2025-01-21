@@ -27,6 +27,12 @@ export default function Home() {
   const [account, setAccount] = useState("");
   const [factory, setFactory] = useState<ethers.Contract | undefined>(undefined);
   const [fee, setFee] = useState(Number);
+  const [showCreate, setShowCreate] = useState(false);
+  const [token, setToken] = useState<any[]>([]);
+
+  // function toggleCreate() {
+  //   showCreate ? setShowCreate(false) : setShowCreate(true);
+  // }
 
   async function loadBlockchainData() {
     if (typeof (window as any).ethereum !== "undefined") {
@@ -62,6 +68,33 @@ export default function Home() {
       console.log(fee);
 
       setFee(fee);
+
+      // Token details
+      const totalTokens = await contractFactory.totalTokens();
+      console.log(totalTokens);
+      const tokens = [];
+
+      for(let i = 0; i < totalTokens; i++) {
+
+        const tokenSale = await contractFactory.getTokenSale(i);
+        console.log("token", tokenSale);
+
+        const token = {
+          token: tokenSale.token,
+          name: tokenSale.name,
+          creator: tokenSale.creator,
+          sold: tokenSale.sold,
+          raised: tokenSale.raised,
+          isOpen: tokenSale.isOpen,
+          image: images[i]
+        }
+
+        tokens.push(token);
+      }
+
+      console.log(tokens.reverse())
+
+      setToken(tokens);
       
     } else {
       console.error("Ethereum provider not found");
@@ -78,6 +111,25 @@ export default function Home() {
   return (
     <div className="page">
       <Header account={account} setAccount={setAccount} />
+
+      <main>
+        <div className="create">
+          <button className="btn--fancy" onClick={() => {account && factory && setShowCreate(true)}}>
+            {!factory ? (
+              "[ Contract not deployed ]"
+            ): !account ? (
+              "[ Please connect wallet ]"
+            ) : (
+              "[ Start a new token ]"
+            )}
+          </button>
+        </div>
+
+        <div>Hii</div>
+      </main>
+
+      {showCreate && <List setShowCreate={setShowCreate} fee={fee} provider={provider} factory={factory} />}
+
     </div>
   );
 }

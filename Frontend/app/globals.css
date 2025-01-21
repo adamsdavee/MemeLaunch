@@ -54,6 +54,7 @@ header .brand {
   font-family: "Nabla";
   font-size: 2rem;
   transform: rotate(-5deg);
+  color: aqua;
 }
 
 /* BUTTON STYLES */
@@ -62,6 +63,8 @@ header .brand {
 input[type="submit"] {
   font-family: "Nabla";
   font-size: 1.5rem;
+
+  color: aqua;
 
   background: transparent;
   border: none;
