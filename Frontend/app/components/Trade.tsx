@@ -2,7 +2,7 @@ import React from 'react'
 
 const Trade = () => {
   return (
-    <div>
+    <div className='list'>
       Hi
     </div>
   )

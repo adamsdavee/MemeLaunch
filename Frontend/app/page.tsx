@@ -38,7 +38,9 @@ export default function Home() {
   const [factory, setFactory] = useState<ethers.Contract | undefined>(undefined);
   const [fee, setFee] = useState(Number);
   const [showCreate, setShowCreate] = useState(false);
-  const [token, setToken] = useState<any[]>([]);
+  const [tokens, setTokens] = useState<any[]>([]);
+  const [token, setToken] = useState<any>();
+  const [trade, setTrade] = useState(false);
 
   // function toggleCreate() {
   //   showCreate ? setShowCreate(false) : setShowCreate(true);
@@ -90,7 +92,7 @@ export default function Home() {
         console.log("token", tokenSale);
 
         const token = {
-          token: tokenSale.token as string,
+          token: tokenSale.token,
           name: tokenSale.name,
           creator: tokenSale.creator,
           sold: tokenSale.sold,
@@ -104,7 +106,7 @@ export default function Home() {
 
       console.log(tokens.reverse())
 
-      setToken(tokens);
+      setTokens(tokens);
       
     } else {
       console.error("Ethereum provider not found");
@@ -141,12 +143,12 @@ export default function Home() {
           <div className="tokens">
             {!account ? (
               <p>please connect wallet</p>
-            ): token?.length == 0 ? (
+            ): tokens?.length == 0 ? (
               <p>No tokens listed</p>
             ) : (
-              token?.map((token: any, index: any) => (
+              tokens?.map((token: any, index: any) => (
                 <div key={index}>
-                <Token toggleTrade={() => {}} token={token} />
+                <Token setToken={setToken} setTrade={setTrade} token={token} />
                   </div>
             ))
             )}
@@ -155,6 +157,8 @@ export default function Home() {
       </main>
 
       {showCreate && <List setShowCreate={setShowCreate} fee={fee} provider={provider} factory={factory} />}
+
+      {trade && <Trade />}
 
     </div>
   );
