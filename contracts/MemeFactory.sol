@@ -5,7 +5,7 @@ pragma solidity ^0.8.27;
 // import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./MemeToken.sol";
+import {MemeToken} from "./MemeToken.sol";
 
 
 error MemeFactory__InsufficientFee();
@@ -104,7 +104,8 @@ contract MemeFactory {
         TokenSale memory sale = tokenToSale[_token];
 
         // Transfer tokens
-        MemeToken.transfer(sale.creator, MemeToken.balanceOf(address(this)));
+        MemeToken token = MemeToken(_token);
+        token.transfer(sale.creator, token.balanceOf(address(this)));
 
         // Transfer ETH raised
         (bool success, ) = payable(sale.creator).call{value: sale.raised}("");
@@ -128,7 +129,7 @@ contract MemeFactory {
 
     //// INTERNAL FUNCTIONS
     function getCost(uint256 _sold) public pure returns (uint256) {
-        
+
         uint256 floor = 0.0001 ether;
         uint256 step = 0.0001 ether;
         uint256 increment = 10000 ether;

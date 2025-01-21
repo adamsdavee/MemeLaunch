@@ -2,17 +2,15 @@
 // Learn more about it at https://hardhat.org/ignition
 
 const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+const { ethers } = require("hardhat");
 
-const JAN_1ST_2030 = 1893456000;
-const ONE_GWEI = 1_000_000_000n;
+const FEE = ethers.parseUnits("0.01", 18);
 
-module.exports = buildModule("LockModule", (m) => {
-  const unlockTime = m.getParameter("unlockTime", JAN_1ST_2030);
-  const lockedAmount = m.getParameter("lockedAmount", ONE_GWEI);
+module.exports = buildModule("MemeFactoryModule", (m) => {
 
-  const lock = m.contract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const fee = m.getParameter("fee", FEE);
 
-  return { lock };
+  const memeFactory = m.contract("MemeFactory", [fee]);
+
+  return { memeFactory };
 });
