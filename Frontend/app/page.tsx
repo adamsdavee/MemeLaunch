@@ -115,7 +115,7 @@ export default function Home() {
 
   useEffect(() => {
     loadBlockchainData();
-  }, []);
+  }, [showCreate, trade]);
 
 
 
@@ -158,7 +158,7 @@ export default function Home() {
 
       {showCreate && <List setShowCreate={setShowCreate} fee={fee} provider={provider} factory={factory} />}
 
-      {trade && <Trade />}
+      {trade && <Trade token={token} setTrade={setTrade} provider={provider} factory={factory}/>}
 
     </div>
   );

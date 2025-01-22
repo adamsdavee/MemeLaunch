@@ -22,7 +22,7 @@ const List = ({setShowCreate, fee, provider, factory}: {setShowCreate: (create: 
       <h2 style={{color: 'aqua'}}>List new token</h2>
 
       <div className='list_description'>
-        <p style={{color: 'aqua'}}>fee: {ethers.formatUnits(fee, 18)} ETH</p>
+        <p style={{color: 'aqua'}}>fee: {ethers.formatUnits(fee, 18)} TLOS</p>
       </div>
 
       <form action={listHandler}>
