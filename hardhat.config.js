@@ -2,7 +2,7 @@ require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
-// const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 module.exports = {
   solidity: "0.8.27",
@@ -14,10 +14,10 @@ module.exports = {
       chainId: 31337,
       allowUnlimitedContractSize: true,
     },
-    // core: {
-    //   url: 'https://rpc.test.btcs.network',
-    //   accounts: [PRIVATE_KEY],
-    //   chainId: 1115,
-    // },
+    telos: {
+      url: 'https://rpc.testnet.telos.net',
+      accounts: [PRIVATE_KEY],
+      chainId: 41,
+    },
   },
 };

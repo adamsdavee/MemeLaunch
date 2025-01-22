@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { ExternalProvider } from "@ethersproject/providers";
 
 
 import List from "./components/List";
@@ -16,22 +15,8 @@ import config from "./constants/config.json";
 import images from "./images.json";
 
 
-interface Window {
-  ethereum?: ExternalProvider;
-}
-
 
 export default function Home() {
-
-//   interface tokenss {
-//     token: string;
-//     name: string;
-//     creator: string;
-//     sold: bigint;
-//     raised: bigint;
-//     isOpen: boolean;
-//     image: string;
-// }[]
 
   const [provider, setProvider] = useState<ethers.BrowserProvider | undefined>(undefined);
   const [account, setAccount] = useState("");
