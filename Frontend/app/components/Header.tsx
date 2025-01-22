@@ -13,7 +13,7 @@ const Header = ({account, setAccount}: {account: string, setAccount: (address: s
 
   return (
     <header>
-      <h1 className='brand'>Pump.fun</h1>
+      <h1 className='brand'>Pump.Meme</h1>
      { account ? (
       <button className='btn--fancy'>[{account.slice(0, 6) + '...' + account.slice(38, 42)}]</button>
     ) : (
